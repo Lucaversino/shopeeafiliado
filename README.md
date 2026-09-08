@@ -1,67 +1,37 @@
-# Shopee Affiliate 3D — Next.js
+# Mega Ofertas Shopee — Next.js
 
-Site moderno para divulgar produtos de afiliado Shopee com painel administrativo.
+Projeto React/Next.js com:
+- site público responsivo;
+- cards com efeito 3D;
+- painel administrativo;
+- login por senha;
+- Supabase;
+- importador de links de afiliado Shopee;
+- resolução de links curtos `s.shopee.com.br`;
+- detecção de `shop_id` e `item_id`;
+- tentativa de leitura por JSON-LD, Open Graph e dados embutidos no HTML;
+- edição manual caso a Shopee esconda algum campo.
 
-## Recursos
+## Supabase
+Execute `supabase/schema.sql` no SQL Editor.
 
-- Next.js 15 + React 19
-- Landing page moderna
-- Cards com efeito 3D/tilt
-- Painel administrativo protegido por senha
-- Importação por link de afiliado
-- Extração automática de título, preço, imagem e descrição quando a página expõe metadados/JSON-LD
-- Edição manual antes/depois de salvar
-- Produtos em destaque
-- Supabase como banco de dados
-- Pronto para Vercel
+## Vercel
+Cadastre:
+- NEXT_PUBLIC_SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+- ADMIN_PASSWORD
+- ADMIN_COOKIE_SECRET
+- NEXT_PUBLIC_SITE_NAME
 
-## 1. Criar banco no Supabase
-
-Abra o SQL Editor do Supabase e execute o conteúdo de:
-
-`supabase/schema.sql`
-
-## 2. Variáveis de ambiente
-
-Copie `.env.example` para `.env.local` e preencha:
-
-```bash
-NEXT_PUBLIC_SUPABASE_URL=
-SUPABASE_SERVICE_ROLE_KEY=
-ADMIN_PASSWORD=
-ADMIN_COOKIE_SECRET=
-NEXT_PUBLIC_SITE_NAME=
-```
-
-ATENÇÃO: nunca exponha `SUPABASE_SERVICE_ROLE_KEY` no navegador.
-
-## 3. Instalar
-
-```bash
-npm install
-npm run dev
-```
-
-Abra:
-
-- Site: http://localhost:3000
-- Admin: http://localhost:3000/admin
-
-## 4. Deploy na Vercel
-
-1. Envie este projeto para um repositório GitHub.
-2. Importe o repositório na Vercel.
-3. Cadastre todas as variáveis do `.env.example` em Project Settings > Environment Variables.
-4. Faça Deploy.
+Depois faça Redeploy.
 
 ## Importação Shopee
+O importador resolve o link curto e reconhece formatos como:
 
-O importador tenta:
-1. resolver redirecionamentos do link de afiliado;
-2. ler JSON-LD;
-3. ler Open Graph;
-4. ler metatags comuns.
+- `/nome-do-produto-i.123.456`
+- `/product/123/456`
+- `/qualquer-coisa/123/456`
 
-A Shopee pode mudar a página, bloquear automações ou esconder determinados dados. Por isso o painel permite corrigir os campos manualmente antes de salvar.
+Isso inclui links de afiliado que redirecionam para páginas com `shop_id` e `item_id` nos últimos segmentos da URL.
 
-Para integração oficial com APIs da Shopee/Open Platform, substitua a função em `lib/import-product.js`.
+A Shopee pode bloquear a leitura de preço/foto/título em alguns links. Nesse caso o painel mostra o link resolvido e os IDs encontrados, e permite completar os campos manualmente.

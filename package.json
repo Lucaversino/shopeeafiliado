@@ -1,12 +1,11 @@
 {
-  "name": "shopee-affiliate-3d-next",
-  "version": "1.0.0",
+  "name": "megaofertasshopee-next",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
